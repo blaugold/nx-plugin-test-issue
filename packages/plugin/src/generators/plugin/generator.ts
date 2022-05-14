@@ -6,6 +6,7 @@ import {
   names,
   offsetFromRoot,
   Tree,
+  workspaceRoot,
 } from '@nrwl/devkit';
 import * as path from 'path';
 import { PluginGeneratorSchema } from './schema';
@@ -56,6 +57,7 @@ function addFiles(tree: Tree, options: NormalizedSchema) {
 }
 
 export default async function (tree: Tree, options: PluginGeneratorSchema) {
+  console.log('workspaceRoot', workspaceRoot);
   const normalizedOptions = normalizeOptions(tree, options);
   addProjectConfiguration(tree, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,

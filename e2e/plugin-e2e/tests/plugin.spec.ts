@@ -3,6 +3,7 @@ import {
   ensureNxProject,
   readJson,
   runNxCommandAsync,
+  tmpProjPath,
   uniq,
 } from '@nrwl/nx-plugin/testing';
 
@@ -22,6 +23,14 @@ describe('plugin e2e', () => {
     // some work which can help clean up e2e leftovers
     runNxCommandAsync('reset');
   });
+
+  it('should see tmp workspace as workspaceRoot', async () => {
+    const project = uniq('plugin');
+    const { stdout } = await runNxCommandAsync(
+      `generate @org/plugin:plugin ${project}`
+    );
+    expect(stdout).toContain(`workspaceRoot ${tmpProjPath()}`);
+  }, 120000);
 
   it('should create plugin', async () => {
     const project = uniq('plugin');
